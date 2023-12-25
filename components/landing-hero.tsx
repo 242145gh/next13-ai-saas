@@ -17,11 +17,9 @@ export const LandingHero = () => {
           <TypewriterComponent
             options={{
               strings: [
-                "FIrst comes Fact.",
-                "Then comes Understanding.",
-                "Next Knowledge .",
-                "Then Wisdom.",
-                "Wisdom Source your go to for the best peoples views"
+                "First comes data, then facts and understanding",
+                "Knowledge is something you gain and then Wisdom",
+                "Talk to geniuses worldwide an advice golden mine Wisdom Source!"
               ],
               autoStart: true,
               loop: true,
