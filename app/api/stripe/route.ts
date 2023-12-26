@@ -32,7 +32,7 @@ export async function GET() {
     }
 
     const stripeSession = await stripe.checkout.sessions.create({
-      success_url: settingsUrl,
+      success_url: "/heros",
       cancel_url: settingsUrl,
       payment_method_types: ["card"],
       mode: "subscription",
