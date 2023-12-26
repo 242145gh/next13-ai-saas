@@ -23,6 +23,8 @@ const HeroPage = () => {
         <Heros image="/Sir_Winston_Churchill_-_19086236948.jpg" name="Sir Winston Churchill" url="/churchill"  />
         <Heros image="/arnold.jpg" name="Arnold Schwarzenegger" url="/arnold"  />
         <Heros image="/Xi Jinping.jpg" name="Xi Jinping" url="/jinping"  />
+        <Heros image="/putin.jpg" name="putin" url="/putin"  />
+        <Heros image="/super_woman.jpg" name="Super Woman" url="/swoman"  />
       
       </div></>
 
