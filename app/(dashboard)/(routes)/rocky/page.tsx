@@ -43,7 +43,7 @@ const ConversationPage = () => {
       const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
       const newMessages = [...messages, userMessage];
       
-      const response = await axios.post('/api/arnold', { messages: newMessages });
+      const response = await axios.post('/api/rocky', { messages: newMessages });
       setMessages((current) => [...current, userMessage, response.data]);
       
       form.reset();
@@ -61,7 +61,7 @@ const ConversationPage = () => {
   return ( 
     <div>
       <Heading
-        title="Arnold Schwarzenegger"
+        title="Rocky Bolba"
         description="Talk with Rocky Bolba a boxer who fought Muhammad Ali and lost on a TKO in the 15th round"
         icon={FilmIcon}
         iconColor="text-violet-500"
