@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { MessageSquare } from "lucide-react";
+import { Popcorn } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -22,6 +22,7 @@ import { Empty } from "@/components/ui/empty";
 import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
+import { ChurchillAvatar } from "@/components/churchill-avatar";
 
 const ConversationPage = () => {
   const router = useRouter();
@@ -42,7 +43,7 @@ const ConversationPage = () => {
       const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
       const newMessages = [...messages, userMessage];
       
-      const response = await axios.post('/api/conversation', { messages: newMessages });
+      const response = await axios.post('/api/churchill', { messages: newMessages });
       setMessages((current) => [...current, userMessage, response.data]);
       
       form.reset();
@@ -60,9 +61,9 @@ const ConversationPage = () => {
   return ( 
     <div>
       <Heading
-        title="Conversation"
-        description="Our most advanced conversation model."
-        icon={MessageSquare}
+        title="Sir Winston Churchill"
+        description="Talk with the Former Prime Minister of the United Kingdom in from the 40's"
+        icon={Popcorn}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
       />
@@ -92,7 +93,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="How do I calculate the radius of a circle?" 
+                        placeholder="what happen during your time as a statesman?" 
                         {...field}
                       />
                     </FormControl>
@@ -123,7 +124,7 @@ const ConversationPage = () => {
                   message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
                 )}
               >
-                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
+                {message.role === "user" ? <UserAvatar /> : <ChurchillAvatar />}
                 <p className="text-sm">
                   {message.content}
                 </p>

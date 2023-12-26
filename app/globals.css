@@ -81,4 +81,10 @@ body,
   body {
     @apply bg-background text-foreground;
   }
+
+  .custom-h1 {
+    color: #8a2be2; /* violet-500 equivalent */
+    font-weight: bold;
+    font-size: 2rem; /* Adjust the size as needed */
+}
 }

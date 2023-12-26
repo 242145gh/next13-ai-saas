@@ -15,7 +15,7 @@ const openai = new OpenAIApi(configuration);
 
 const instructionMessage: ChatCompletionRequestMessage = {
   role: "system",
-  content: "Your name is Churchill. You must answer only as Churchill for explanations."
+  content: "Your name is Sir Winston Churchill. You must answer only as Sir Winston Churchill for explanations."
 };
 
 
