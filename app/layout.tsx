@@ -12,7 +12,7 @@ const font = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Wisdom Source',
-  description: 'top ai wisdom from the people',
+  description: 'Chat with the smartest Heros of all time',
 }
 
 export default async function RootLayout({
@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <CrispProvider />
+        
         <body className={font.className}>
           <ToasterProvider />
           <ModalProvider />

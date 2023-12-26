@@ -22,7 +22,7 @@ import { Empty } from "@/components/ui/empty";
 import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
-import { RockyAvatar } from "@/components/rocky-avatar";
+import { ArnoldAvatar } from "@/components/arnold-avatar";
 
 const ConversationPage = () => {
   const router = useRouter();
@@ -93,7 +93,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="Where were you born and what years were you James Bond" 
+                        placeholder="where did you used to live?" 
                         {...field}
                       />
                     </FormControl>
@@ -124,7 +124,7 @@ const ConversationPage = () => {
                   message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
                 )}
               >
-                {message.role === "user" ? <UserAvatar /> : <RockyAvatar /> }
+                {message.role === "user" ? <UserAvatar /> : <ArnoldAvatar /> }
                 <p className="text-sm">
                   {message.content}
                 </p>

@@ -64,8 +64,12 @@ export const ProModal = () => {
               </Card>
             ))}
           </DialogDescription>
+        <div className="text-center">    
+            Subscribe for $7.99 per month for unlimted Heros Chats with the Heros of all times!
+            </div>
         </DialogHeader>
         <DialogFooter>
+
           <Button disabled={loading} onClick={onSubscribe} size="lg" variant="premium" className="w-full">
             Upgrade
             <Zap className="w-4 h-4 ml-2 fill-white" />

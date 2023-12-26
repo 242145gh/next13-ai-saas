@@ -7,25 +7,25 @@ const testimonials = [
     name: "Joel",
     avatar: "J",
     title: "Software Engineer",
-    description: "This is the best application I've ever used!",
+    description: "I got an insight into a heros world and its help me understand my life better",
   },
   {
     name: "Antonio",
     avatar: "A",
     title: "Designer",
-    description: "I use this daily for generating new photos!",
+    description: "I chatted with rocky and now i train more",
   },
   {
     name: "Mark",
     avatar: "M",
     title: "CEO",
-    description: "This app has changed my life, cannot imagine working without it!",
+    description: "There are some of the the smartest people who lived on this site.",
   },
   {
     name: "Mary",
     avatar: "M",
     title: "CFO",
-    description: "The best in class, definitely worth the premium subscription!",
+    description: "Love it! its like they are alive again, some of my favourite heros are on here!",
   },
 ];
 
