@@ -22,7 +22,7 @@ export default async function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html class="dark" lang="en" suppressHydrationWarning>
+      <html className="dark" lang="en" suppressHydrationWarning>
         
         <body className={font.className}>
           <ToasterProvider />
