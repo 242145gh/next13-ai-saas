@@ -33,7 +33,7 @@ export async function GET() {
 
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: "https://wisdomsource.vercel.app/settings",
-      cancel_url: settingsUrl,
+      cancel_url: "https://wisdomsource.vercel.app/settings",
       payment_method_types: ["card"],
       mode: "subscription",
       billing_address_collection: "auto",
