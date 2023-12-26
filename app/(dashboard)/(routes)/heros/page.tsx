@@ -17,11 +17,11 @@ const HeroPage = () => {
         icon={AppWindow}
         iconColor="text-violet-700"
         bgColor="bg-violet-500/30" />
-    </div><div className="flex flex-wrap gap-8 p-4">
-        <Heros image="Rocky Balboa.jpg" name="Rocky Balboa" url="/rocky" />
-        <Heros image="james_bond.jpg" name="James Bond (Sean Connery)" url="/bond" />
-        <Heros image="Sir_Winston_Churchill_-_19086236948.jpg" name="Sir Winston Churchill" url="/churchill"  />
-        <Heros image="arnold.jpg" name="Arnold Schwarzenegger" url="/arnold"  />
+    </div><div className="flex flex-wrap gap-2 p-4">
+        <Heros image="/Rocky Balboa.jpg" name="Rocky Balboa" url="/rocky" />
+        <Heros image="/james_bond.jpg" name="James Bond (Sean Connery)" url="/bond" />
+        <Heros image="/Sir_Winston_Churchill_-_19086236948.jpg" name="Sir Winston Churchill" url="/churchill"  />
+        <Heros image="/arnold.jpg" name="Arnold Schwarzenegger" url="/arnold"  />
       
       </div></>
 
