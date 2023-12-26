@@ -62,7 +62,7 @@ const ConversationPage = () => {
     <div>
       <Heading
         title="Arnold Schwarzenegger"
-        description="Talk with Arnold Schwarzenegger an Austrian and American actor, businessman, filmmaker, former politician, and former professional bodybuilder best known for his roles in high-profile action movies"
+        description="Talk with Rocky Bolba a boxer who fought Muhammad Ali and lost on a TKO in the 15th round"
         icon={FilmIcon}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
@@ -93,7 +93,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="Where were you born and what years were you James Bond" 
+                        placeholder="Who was your greatest inspiration" 
                         {...field}
                       />
                     </FormControl>
