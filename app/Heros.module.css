@@ -1,0 +1,21 @@
+/* Heros.module.css */
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px rgba(150, 0, 255, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(150, 0, 255, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(150, 0, 255, 0.7);
+    }
+}
+
+.glowOnHover:hover {
+    animation: glow 1s infinite;
+}
+
+.overlay {
+    background: linear-gradient(90deg, transparent, rgba(150, 0, 255, 0.7), transparent);
+}
