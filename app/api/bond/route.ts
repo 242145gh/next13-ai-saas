@@ -4,12 +4,14 @@ import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
+import prismadb from "@/lib/prismadb";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
   basePath: "https://api.pulze.ai/v1"
   
 });
+
 
 const openai = new OpenAIApi(configuration);
 
@@ -20,9 +22,13 @@ const instructionMessage: ChatCompletionRequestMessage = {
 
 
 export async function POST(
+  
   req: Request
 ) {
+  
+  
   try {
+
     const { userId } = auth();
     const body = await req.json();
     const { messages  } = body;
@@ -42,6 +48,8 @@ export async function POST(
     const freeTrial = await checkApiLimit();
     const isPro = await checkSubscription();
 
+ 
+    
     if (!freeTrial && !isPro) {
       return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
     }
@@ -54,6 +62,21 @@ export async function POST(
     if (!isPro) {
       await incrementApiLimit();
     }
+    
+    const HerosChatCount = await prismadb.herosChatCount.findUnique({
+      where: { HeroName: "James Bond (Sean Connery)"  },
+    });
+    
+    if (HerosChatCount) {
+      await prismadb.herosChatCount.update({
+        where: { HeroName: "James Bond (Sean Connery)" },
+        data: { NumberOfMessages: HerosChatCount.NumberOfMessages + 1 },
+      });
+    } else {
+      await prismadb.herosChatCount.create({
+        data: { HeroName: "James Bond (Sean Connery)", NumberOfMessages: 1 },
+      });
+    }
 
     return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
@@ -61,3 +84,4 @@ export async function POST(
     return new NextResponse("Internal Error", { status: 500 });
   }
 };
+

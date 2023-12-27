@@ -24,3 +24,11 @@ model UserSubscription {
   stripePriceId          String?   @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 }
+
+model HerosChatCount {
+  id  String  @id @default(cuid())
+  HeroName  String @unique
+  NumberOfMessages  Int @default(0)
+}
+
+
