@@ -28,7 +28,7 @@ const HeroPage = () => {
         <Heros icon={MessageCircleIcon} image="/Xi Jinping.jpg" name="Xi Jinping" url="/jinping"   />
         <Heros icon={MessageCircleIcon} image="/putin.jpg" name="Vladimir Putin" url="/putin"   />
         <Heros icon={MessageCircleIcon} image="/super_woman.jpg" name="Super Woman" url="/swoman"   />
-        <Heros icon={MessageCircleIcon} image="/skeletor.jpg" name="Skeletor" url="/skeletor"   />
+        <Heros icon={MessageCircleIcon} image="/Skeletor.jpg" name="Skeletor" url="/skeletor"   />
 
       
       </div></>
