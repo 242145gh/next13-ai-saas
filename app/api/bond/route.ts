@@ -24,6 +24,7 @@ const instructionMessage: ChatCompletionRequestMessage = {
 export async function POST(
   
   req: Request
+ 
 ) {
   
   
@@ -64,7 +65,7 @@ export async function POST(
     }
     
     const HerosChatCount = await prismadb.herosChatCount.findUnique({
-      where: { HeroName: "James Bond (Sean Connery)"  },
+      where: { HeroName: "James Bond (Sean Connery)"   },
     });
     
     if (HerosChatCount) {

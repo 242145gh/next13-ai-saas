@@ -4,6 +4,7 @@ import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
+import prismadb from "@/lib/prismadb";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -53,6 +54,21 @@ export async function POST(
 
     if (!isPro) {
       await incrementApiLimit();
+    }
+
+    const HerosChatCount = await prismadb.herosChatCount.findUnique({
+      where: { HeroName: "Sir Winston Churchill"   },
+    });
+    
+    if (HerosChatCount) {
+      await prismadb.herosChatCount.update({
+        where: { HeroName: "Sir Winston Churchill" },
+        data: { NumberOfMessages: HerosChatCount.NumberOfMessages + 1 },
+      });
+    } else {
+      await prismadb.herosChatCount.create({
+        data: { HeroName: "Sir Winston Churchill", NumberOfMessages: 1 },
+      });
     }
 
     return NextResponse.json(response.data.choices[0].message);

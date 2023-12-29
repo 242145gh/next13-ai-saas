@@ -4,6 +4,7 @@ import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
+import prismadb from "@/lib/prismadb";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -50,6 +51,22 @@ export async function POST(
       model: "gpt-3.5-turbo",
       messages: [instructionMessage, ...messages]
     });
+
+
+    const HerosChatCount = await prismadb.herosChatCount.findUnique({
+      where: { HeroName: "Arnold Schwarzenegger"   },
+    });
+    
+    if (HerosChatCount) {
+      await prismadb.herosChatCount.update({
+        where: { HeroName: "Arnold Schwarzenegger" },
+        data: { NumberOfMessages: HerosChatCount.NumberOfMessages + 1 },
+      });
+    } else {
+      await prismadb.herosChatCount.create({
+        data: { HeroName: "Arnold Schwarzenegger", NumberOfMessages: 1 },
+      });
+    }
 
     if (!isPro) {
       await incrementApiLimit();
