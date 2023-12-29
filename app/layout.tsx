@@ -6,7 +6,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 import { ToasterProvider } from '@/components/toaster-provider'
 import { ModalProvider } from '@/components/modal-provider'
-import { CrispProvider } from '@/components/crisp-provider'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import './globals.css'
 
@@ -28,6 +28,7 @@ export default async function RootLayout({
         
         <body className={font.className}>
           <Analytics />
+          <SpeedInsights/>
           <ToasterProvider />
           <ModalProvider />
           {children}
