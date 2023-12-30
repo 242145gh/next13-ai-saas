@@ -17,7 +17,8 @@ const HeroPage = () => {
         description="Our most advanced brains captured with ai."
         icon={AppWindow}
         iconColor="text-violet-700"
-        bgColor="bg-violet-500/30" />
+        bgColor="bg-violet-500/30" 
+        />
     </div>
       
       <HorizontalScrollCarousel />

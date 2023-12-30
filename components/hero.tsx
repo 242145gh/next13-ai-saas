@@ -60,36 +60,40 @@ const Heros: React.FC<HeroProps> = ({ icon: IconComponent, image, name, url,desc
 
   function limitCharacters(inputString: string, maxLength: number) {
     if (inputString.length > maxLength) {
-      return inputString.substring(0, maxLength); // or inputString.slice(0, maxLength)
+      return inputString.substring(0, maxLength)+"..."; // or inputString.slice(0, maxLength)
     }
     return inputString;
   }
   
   const shortDescription = limitCharacters(description, maxLength)
   return (
-<div className="w-1/4 flex-shrink-0 top-0 hover:border-grey hover:bg-gray-700 rounded-lg gap-4">
-  <a href={url} className="relative block">
-    <div className="flex justify-center p-4">
-      <Image src={image} alt={name} className={`object-cover rounded-lg ${styles.glowOnHover}`} width="120" height="120" />
-    </div>
-  </a>
+    <a href={url} className="relative block w-1/4 flex-shrink-0 top-0 hover:border-grey hover:bg-gray-700 rounded-lg gap-4 mx-auto">
+  <div className="flex justify-center p-4">
+    <Image src={image} alt={name} className={`object-cover rounded-lg ${styles.glowOnHover}`} width="120" height="120" />
+  </div>
+
   <div className="relative text-center">
     <h1 className="text-violet-500 text-xs font-bold">{name}</h1>
     <div className="text-xs text-grey-800 p-2 w-3/4 mx-auto"> {/* Set 'mx-auto' for centering */}
       {shortDescription}
     </div>
     {hero ? (
-      <div className="absolute text-violet-100 text-xs p-2"> 
-        {IconComponent && <IconComponent className="flex text-violet-400" />}
-        {hero.NumberOfMessages}
-      </div>
-    ) : (
-      <div></div>
-    )}
+  <div className="relative">
+    <div className="flex items-center absolute text-violet-100 text-xs p-2">
+      <div className='text-xs mr-12'>@zser</div>
+      <div className='flex-grow'></div> {/* This will take up remaining space */}
+      {IconComponent && <IconComponent size="14" className="flex text-violet-400 text-xs ml-12" />}
+      <div className='flex'>{hero.NumberOfMessages}</div>
+    </div>
   </div>
-</div>
+) : (
+  <div></div>
+)}
 
-     
+  </div>
+</a>
+
+
     
   );
 };

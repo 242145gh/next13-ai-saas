@@ -25,7 +25,8 @@ export default async function RootLayout({
     <ClerkProvider>
       <html className="dark" lang="en" suppressHydrationWarning>
         
-        <body className={font.className}>
+        <body className="main-font">
+     
           <Analytics />
           <SpeedInsights/>
           <ToasterProvider />

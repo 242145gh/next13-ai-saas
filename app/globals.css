@@ -87,3 +87,17 @@ img{
   width: auto;
   height: auto;
 }
+
+
+@font-face {
+  font-family:Noto Sans;
+  font-style:normal;
+  font-weight:100;
+  src:url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Rubik+Doodle+Shadow&display=swap');
+  
+}
+
+.main-font {
+  font-family: 'Noto Sans', sans-serif;
+  /* Additional styles can be added as needed */
+}
