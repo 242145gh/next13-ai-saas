@@ -12,13 +12,13 @@ export const LandingHero = () => {
   return (
     <div className="text-white font-bold py-36 text-center space-y-5">
       <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl space-y-5 font-extrabold">
-        <h1>The Best AI Chat Tools for</h1>
+        <h1>Use the power of Wisdom Source ai:</h1>
         <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
           <TypewriterComponent
             options={{
               strings: [
-                "Learning from Heros",
-                "gaining wisdom from the Smartest people that lived",
+                "Chat with your Idols, Actors, Carton Charachters, Predsidents, Heros and more ---> ",
+                "Make your own ai character in seconds",
                 ],
               autoStart: true,
               loop: true,
@@ -27,12 +27,12 @@ export const LandingHero = () => {
         </div>
       </div>
       <div className="text-sm md:text-xl font-light text-zinc-400">
-        The best of the best.
+        The most intellegent ai Models 
       </div>
       <div>
         <Link href={isSignedIn ? "/heros" : "/sign-up"}>
           <Button variant="premium" className="md:text-lg p-4 md:p-6 rounded-full font-semibold">
-            Start Chatting For Free
+            Chat free!
           </Button>
         </Link>
       </div>

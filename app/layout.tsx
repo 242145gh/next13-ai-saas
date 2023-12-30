@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
-import { Analytics } from '@vercel/analytics/react';
- 
-
+import { Analytics } from '@vercel/analytics/react'
 import { ToasterProvider } from '@/components/toaster-provider'
 import { ModalProvider } from '@/components/modal-provider'
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import './globals.css'
 
@@ -14,7 +12,7 @@ const font = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Wisdom Source',
-  description: 'Chat with the smartest Heros of all time',
+  description: 'Chat with your Idols, Actors, Carton Charachters, Predsidents, Heros and more use the power of wisdom source ai',
 }
 
 export default async function RootLayout({
