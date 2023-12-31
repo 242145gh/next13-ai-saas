@@ -56,7 +56,7 @@ const Heros: React.FC<HeroProps> = ({ icon: IconComponent, image, name, url,desc
   }, [name]); // Dependency array, re-run effect when 'name' changes
 
   const hero = response.find((h) => h.HeroName === name);
-  const maxLength = 100;
+  const maxLength = 75;
 
   function limitCharacters(inputString: string, maxLength: number) {
     if (inputString.length > maxLength) {
@@ -67,14 +67,15 @@ const Heros: React.FC<HeroProps> = ({ icon: IconComponent, image, name, url,desc
   
   const shortDescription = limitCharacters(description, maxLength)
   return (
-    <a href={url} className="relative block w-1/4 flex-shrink-0 top-0 hover:border-grey hover:bg-gray-700 rounded-lg gap-4 mx-auto">
-  <div className="flex justify-center p-4">
-    <Image src={image} alt={name} className={`object-cover rounded-lg ${styles.glowOnHover}`} width="120" height="120" />
+    <a href={url} className="relative block  flex-shrink-0 top-0 hover:border-grey hover:bg-gray-700 rounded-lg gap-4 mx-auto">
+  <div className="flex justify-center p-4 ">
+  <Image src={image} alt={name} className={` object-cover rounded-lg ${styles.glowOnHover}`} width={150} height={150}/>
+
   </div>
 
   <div className="relative text-center">
     <h1 className="text-violet-500 text-xs font-bold">{name}</h1>
-    <div className="text-xs text-grey-800 p-2 w-3/4 mx-auto"> {/* Set 'mx-auto' for centering */}
+    <div className="text-xs text-grey-800 p-2 w-full mx-auto"> {/* Set 'mx-auto' for centering */}
       {shortDescription}
     </div>
     {hero ? (

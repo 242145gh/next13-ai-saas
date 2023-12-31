@@ -3,8 +3,9 @@
 import { AppWindow } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { Heading } from "@/components/heading";
-
-import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
+import Suggestions from "@/components/suggestions";
+import HeroSwiper from "@/components/HeroSwiper";
+import CaterogySwiper from "@/components/CaterogySwiper";
 
  
 
@@ -20,9 +21,9 @@ const HeroPage = () => {
         bgColor="bg-violet-500/30" 
         />
     </div>
-      
-      <HorizontalScrollCarousel />
-     
+      <CaterogySwiper />
+      <HeroSwiper />
+      <Suggestions />
    </>
    );
 }

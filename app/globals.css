@@ -10,6 +10,8 @@ body,
  
 @layer base {
   :root {
+
+
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
  
@@ -71,6 +73,7 @@ body,
     --destructive-foreground: 0 85.7% 97.3%;
  
     --ring: 12 6.5% 15.1%;
+
   }
 }
  
@@ -101,3 +104,9 @@ img{
   font-family: 'Noto Sans', sans-serif;
   /* Additional styles can be added as needed */
 }
+
+.image-size {
+  width: 220px;
+  height: 220px;
+}
+

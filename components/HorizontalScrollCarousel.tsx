@@ -18,8 +18,8 @@ const HorizontalScrollCarousel = () => {
   const x = useTransform(scrollXProgress, [0, 1], ["95%", "-1%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[100vh] bg-neutral-900 overflow-x-scroll text-center overflow-hidden">
-    <div className="sticky top-0 flex h-33 items-center">
+    <section ref={targetRef} className="relative h-[45vh] bg-neutral-900 overflow-x-scroll text-center overflow-hidden">
+    <div className="sticky top-0 flex h-45 w-1/2 items-center">
 
         <motion.div style={{ x }} className="flex gap-2 p-5">
         <Heros icon={MessageCircleIcon} image="/Rocky Balboa.jpg" name="Rocky Balboa" url="/rocky" description="a boxer who fought Muhammad Ali and lost on a TKO in the 15th round"/>     
