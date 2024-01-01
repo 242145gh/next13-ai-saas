@@ -20,7 +20,7 @@
     background: linear-gradient(90deg, transparent, rgba(150, 0, 255, 0.7), transparent);
 }
 
-.swiper-button-next {
+.swiper-button-next{
     left: 1.5rem;
     width: 3rem;
     height: 3rem;

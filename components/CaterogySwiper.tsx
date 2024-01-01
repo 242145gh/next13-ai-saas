@@ -1,7 +1,4 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-
-
 // import required modules
 import { FreeMode, Mousewheel, Navigation } from 'swiper/modules';
 import { Button } from './ui/button';
@@ -10,14 +7,7 @@ import "../app/Heros.module.css"
 
 export default function CaterogySwiper() {
 
-
-    
   return (
-    
-
-
-
-
 
       <Swiper
         direction={'horizontal'}
@@ -30,7 +20,7 @@ export default function CaterogySwiper() {
         
         freeMode={true}
         modules={[Mousewheel,FreeMode,Navigation]}
-        className=""
+        className="CatSwiper"
       >
         <SwiperSlide><Button variant="link" >Actors</Button></SwiperSlide>
         <SwiperSlide><Button variant="ghost" >Presidents</Button></SwiperSlide>
