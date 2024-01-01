@@ -3,7 +3,7 @@
 import { AppWindow } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { Heading } from "@/components/heading";
-import Suggestions from "@/components/suggestions";
+
 import HeroSwiper from "@/components/HeroSwiper";
 import CaterogySwiper from "@/components/CaterogySwiper";
 
@@ -23,7 +23,7 @@ const HeroPage = () => {
     </div>
       <CaterogySwiper />
       <HeroSwiper />
-      <Suggestions />
+      
    </>
    );
 }
