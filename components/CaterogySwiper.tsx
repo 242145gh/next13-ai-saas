@@ -27,6 +27,7 @@ export default function CaterogySwiper() {
         mousewheel={true}
         navigation={true}
         
+        
         freeMode={true}
         modules={[Mousewheel,FreeMode,Navigation]}
         className=""
