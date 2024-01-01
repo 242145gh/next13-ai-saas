@@ -4,8 +4,8 @@ import { AppWindow } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { Heading } from "@/components/heading";
 
-//import HeroSwiper from "@/components/HeroSwiper";
-//import CaterogySwiper from "@/components/CaterogySwiper";
+import HeroSwiper from "@/components/HeroSwiper";
+import CaterogySwiper from "@/components/CaterogySwiper";
 
  
 
@@ -21,6 +21,8 @@ const HeroPage = () => {
         bgColor="bg-violet-500/30" 
         />
     </div>
+      <CaterogySwiper />
+      <HeroSwiper />
       
    </>
    );

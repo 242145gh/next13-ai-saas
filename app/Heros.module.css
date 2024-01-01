@@ -20,19 +20,23 @@
     background: linear-gradient(90deg, transparent, rgba(150, 0, 255, 0.7), transparent);
 }
 
-.swiper-button-next{
-    left: 1.5rem;
-    width: 3rem;
-    height: 3rem;
-    background-color: crimson;
-    right: initial;
-}
 
-.swiper-button-next::after{
-    content: '';
-    
-}
-
-.swiper-button-next::before {
-    content: ':)';
-}
+/* Grid */
+.CatSwiper .swiper-wrapper {
+    flex-direction: row !important;
+  }
+  
+  .CatSwiper .swiper-slide {
+    align-self: flex-end;
+    font-size: 18px;
+    background: #fff;
+    /* Change column as you want by calc 3 <== examble */
+    height: calc((100% - 30px) / 3) !important;
+  }
+  
+  .CatSwiper .swiper-button-prev,
+  .CatSwiper .swiper-button-next {
+    color: red;
+    font-weight: bold;
+  }
+  

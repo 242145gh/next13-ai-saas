@@ -4,6 +4,9 @@ import { FreeMode, Mousewheel, Navigation } from 'swiper/modules';
 import { Button } from './ui/button';
 import "../app/Heros.module.css"
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/mousewheel';
 
 export default function CaterogySwiper() {
 
@@ -16,8 +19,7 @@ export default function CaterogySwiper() {
         slidesPerGroup={3}
         mousewheel={true}
         navigation={true}
-        
-        
+       
         freeMode={true}
         modules={[Mousewheel,FreeMode,Navigation]}
         className="CatSwiper"
