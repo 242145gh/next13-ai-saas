@@ -26,6 +26,6 @@ class DataMuseApi{
 
     }
 }
-
-export const datamuseApi = new DataMuseApi();
+const datamuseapi = new DataMuseApi();
+export default  datamuseapi;
 

@@ -1,4 +1,4 @@
-import { datamuseApi } from "@/app/api/dataMuseApi/route";
+import datamuseapi from '@/app/api/datamuseapi/route';
 import { useState } from 'react';
 import { Button } from "./ui/button";
 
@@ -27,19 +27,19 @@ export default function Suggestions() {
 
     const handlePrintRandomWords = async () => {
         try {
-            const responseMeanLike = await datamuseApi.getWordsMeanLike("ask Rocky Bolba");
+            const responseMeanLike = await datamuseapi.getWordsMeanLike("ask Rocky Bolba");
             setWordsMeanLike(responseMeanLike);
             console.log(responseMeanLike);
             
-            const responseAdjectives = await datamuseApi.getWordsAdjectives("fought who");
+            const responseAdjectives = await datamuseapi.getWordsAdjectives("fought who");
             setAdjectives(responseAdjectives);
             console.log(responseAdjectives);
 
-            const responseComprisesOf = await datamuseApi.getWordsComprisesOf("if boxer");
+            const responseComprisesOf = await datamuseapi.getWordsComprisesOf("if boxer");
             setComprisesOf(responseComprisesOf);
             console.log(responseComprisesOf);
 
-            const responseGeneralThan = await datamuseApi.getWordsMoreGeneralThan("question how film");
+            const responseGeneralThan = await datamuseapi.getWordsMoreGeneralThan("question how film");
             setWordsMoreGeneralThan(responseGeneralThan);
             console.log(responseGeneralThan);
 
