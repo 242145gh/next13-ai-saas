@@ -8,6 +8,7 @@ import Heros from './hero';
 import { Button } from '@/components/ui/button';
 import Select from 'react-select';
 import { Input } from '@/components/ui/input';
+import TypewriterComponent from 'typewriter-effect';
 
 interface HeroProps {
   children: ReactElement<HeroProps, string | JSXElementConstructor<any>>;
@@ -40,6 +41,7 @@ export default function HeroSwiper() {
   };
 
   const categoryButtons = [
+    { label: 'All', variant: 'premium', category: '' },
     { label: 'Actors', variant: 'secondary', category: 'actor' },
     { label: 'Presidents', variant: 'secondary', category: 'president' },
     { label: 'Cartoons', variant: 'secondary', category: 'cartoons' },
@@ -131,7 +133,7 @@ export default function HeroSwiper() {
 
   return (
     <>
-      <div className="container mx-auto mt-8 p-4">
+      <div className="container mx-auto mt-8 p-4 relative object-cover rounded-lg b-1">
         <div className="flex items-center space-x-4 mb-4">
           <Input
             type="text"
@@ -140,10 +142,7 @@ export default function HeroSwiper() {
             onChange={(e) => setSearchName(e.target.value)}
             className="p-2 border-2 border-purple-500 rounded-lg focus:outline-none focus:border-pink-500"
           />
-          <div className="relative">
-           
-         
-          </div>
+ 
           <Button
             type="button"
             onClick={handleSearch}
@@ -151,8 +150,16 @@ export default function HeroSwiper() {
           >
             Search
           </Button>
+          <Button
+            type="button"
+            onClick={() => setSearchCategory('')}
+            className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:bg-pink-600 focus:outline-none"
+          >
+            Show All
+          </Button>
         </div>
       </div>
+  
       <Swiper
         direction={'horizontal'}
         slidesPerView={8}
@@ -162,10 +169,10 @@ export default function HeroSwiper() {
         navigation={true}
         freeMode={true}
         modules={[Mousewheel, FreeMode, Navigation]}
-        className="CatSwiper"
+        className="CatSwiper left-5"
       >
         {categoryButtons.map((button, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index}> 
             <Button
               variant={button.variant}
               onClick={() => setSearchCategory(button.category)}
@@ -177,9 +184,9 @@ export default function HeroSwiper() {
       </Swiper>
       <Swiper
         direction={'horizontal'}
-        slidesPerView={2}
+        slidesPerView={5}
         spaceBetween={5}
-        slidesPerGroup={8}
+        slidesPerGroup={5}
         mousewheel={true}
         navigation={true}
         freeMode={true}
@@ -191,9 +198,11 @@ export default function HeroSwiper() {
             <SwiperSlide key={index}>{slide}</SwiperSlide>
           ))
         ) : (
-          <div>No results found</div>
+          <div className='justify-center items-center mr-0'>No results found</div>
         )}
       </Swiper>
+      
+    
     </>
   );
 }
