@@ -14,7 +14,7 @@ interface HeroProps {
 }
 
 interface Hero {
-  HeroName: string;
+  WisdomSourceName: string;
   NumberOfMessages: number;
 
 }
@@ -55,7 +55,7 @@ const Heros: React.FC<HeroProps> = ({ icon: IconComponent, image, name, url,desc
     };
   }, [name]); // Dependency array, re-run effect when 'name' changes
 
-  const hero = response.find((h) => h.HeroName === name);
+  const hero = response.find((h) => h.WisdomSourceName === name);
   const maxLength = 75;
 
   function limitCharacters(inputString: string, maxLength: number) {
