@@ -21,7 +21,7 @@ const HeroPage = () => {
         bgColor="bg-violet-500/30" 
         />
     </div>
-      <CaterogySwiper />
+      
       <HeroSwiper />
       
    </>
