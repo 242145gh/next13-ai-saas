@@ -174,7 +174,7 @@ export default function HeroSwiper() {
         {categoryButtons.map((button, index) => (
           <SwiperSlide key={index}> 
             <Button
-              variant={button.variant}
+              variant={button.variant as "link" | "premium" | "secondary" | "default" | "destructive" | "outline" | "ghost" | null | undefined}
               onClick={() => setSearchCategory(button.category)}
             >
               {button.label}
