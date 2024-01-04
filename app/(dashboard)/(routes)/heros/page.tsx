@@ -10,8 +10,8 @@ const HeroPage = () => {
   return ( 
     <><div>
       <Heading
-        title="Talk with heros"
-        description="Our most advanced brains captured with ai."
+        title="Have a Conversation with anyone."
+        description="harness wisdom sources powerful ai engine"
         icon={MessageCircle}
         iconColor="text-violet-700"
         bgColor="bg-violet-500/30" 

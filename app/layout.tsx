@@ -11,9 +11,9 @@ import './globals.css'
 const font = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Wisdom Source ai - Chat with your Idols',
-  description: 'Chat with your Idols, Actors, Carton Charachters, Predsidents, Heros and more use the power of wisdom source ai',
-  keywords: 'Actor ai, Carton ai, idol ai, Wisdom Source ai, character ai, Predsidents chat, actor chat, president ai, hero ai, '
+  title: 'Wisdom Source ai - Chat with famous people and ai characters',
+  description: 'Chat with famous people and ai characters, Actors, Carton Charachters, Predsidents, Heros, ai characters harness wisdom sources powerful ai engine',
+  keywords: 'Actor ai, Carton ai, idol ai, Wisdom Source ai, character ai, Predsidents chat, actor chat, president ai, hero ai, chatbot cartoon, chatbot famous, chat with idols',
 }
 
 export default async function RootLayout({

@@ -43,8 +43,8 @@ export async function GET() {
           price_data: {
             currency: "USD",
             product_data: {
-              name: "Wisdom Source",
-              description: "Unlimited AI Chat Sessions with Heros"
+              name: "Wisdom Source ai",
+              description: "Harness Wisdom Source's powerful ai engine"
             },
             unit_amount: 799,
             recurring: {
