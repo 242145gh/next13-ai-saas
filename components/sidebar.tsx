@@ -14,11 +14,28 @@ const poppins = Montserrat ({ weight: '600', subsets: ['latin'] });
 const routes = [
 
   {
-    label: 'Heros',
+    label: 'DashBoard',
+    icon: LayoutDashboard,
+    href: '/',
+    color: "text-violet-500",
+    bgColor: "bg-violet-500/10",
+  },
+
+  {
+    label: 'Character Chats',
     icon: MessageSquare,
     href: '/heros',
     color: "text-violet-500",
+    bgColor: "bg-violet-500/10",
   },
+  {
+      label: 'Create Chararacter',
+      icon: ImageIcon,
+      href: '/create',
+      color: "text-violet-500",
+      bgColor: "bg-violet-500/10",
+    },
+  
   {
     label: 'Settings',
     icon: Settings,

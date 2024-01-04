@@ -1,13 +1,9 @@
 "use client";
 
-import { AppWindow } from "lucide-react"
+import { MessageCircle } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { Heading } from "@/components/heading";
-
 import HeroSwiper from "@/components/HeroSwiper";
-import CaterogySwiper from "@/components/CaterogySwiper";
-
- 
 
 const HeroPage = () => {
   const router = useRouter();
@@ -16,7 +12,7 @@ const HeroPage = () => {
       <Heading
         title="Talk with heros"
         description="Our most advanced brains captured with ai."
-        icon={AppWindow}
+        icon={MessageCircle}
         iconColor="text-violet-700"
         bgColor="bg-violet-500/30" 
         />
