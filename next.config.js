@@ -7,6 +7,11 @@ const nextConfig = {
       "cdn.openai.com"
     ]
   },
+  api: {
+    bodyParser: {
+      sizeLimit: '1mb', // Set the limit according to your needs
+    },
+  }
 }
 
 module.exports = nextConfig

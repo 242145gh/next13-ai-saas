@@ -1,13 +1,6 @@
 import { NextResponse } from "next/server";
 import fs from 'fs/promises';
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '1mb', // Set the limit according to your needs
-    },
-  },
-};
 
 export async function POST(req: Request) {
   try {
