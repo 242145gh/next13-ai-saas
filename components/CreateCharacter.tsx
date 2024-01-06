@@ -20,20 +20,29 @@ interface HeroProps {
   category: string;
 }
 
+interface Character {
+  name: string;
+  category: string;
+  description: string;
+  image: string;
+  
+}
+
+const initialCharacter: Character = {
+  name: '',
+  category: '',
+  description: '',
+  image: '',
+};
+
+const initialErrors: { [key in keyof Character]?: string } = {};
+
+
 const CreateCharacter: React.FC = () => {
-  const [newCharacter, setNewCharacter] = useState({
-    name: '',
-    category: '',
-    description: '',
-    image: '',
-  });
+  const [newCharacter, setNewCharacter] = useState<Character>(initialCharacter);
 
   const [slides, setSlides] = useState<React.ReactElement<HeroProps>[]>([]);
-  const [formErrors, setFormErrors] = useState({
-    name: '',
-    category: '',
-    description: '',
-  });
+ const [formErrors, setFormErrors] = useState<{ [key in keyof Character]?: string }>(initialErrors);
 
   useEffect(() => {
     // Fetch characters from JSON file on component mount using Axios
@@ -58,6 +67,8 @@ const CreateCharacter: React.FC = () => {
       })
       .catch((error) => console.error('Error fetching characters:', error));
   }, []);
+
+
 
   const validateForm = () => {
     const errors: { [key: string]: string } = {};

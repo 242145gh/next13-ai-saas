@@ -2,6 +2,7 @@ import { NextApiResponse } from "next";
 import fs from 'fs/promises';
 
 
+
 export async function POST(req: Request, res: NextApiResponse ) {
   try {
     // Parse the incoming JSON data
@@ -38,7 +39,8 @@ async function updateCharactersInFile(updatedCharacters: any) {
 
     // Write the updated data back to characters.json
     await fs.writeFile(filePath, JSON.stringify(charactersData, null, 2), 'utf-8');
-  } catch (error) {
+  } catch (error: any) {
+    
     throw new Error(`Error updating characters in file: ${error.message}`);
   }
 }
