@@ -41,7 +41,7 @@ export default function HeroSwiper() {
   };
 
   const categoryButtons = [
-    { label: 'All', variant: 'premium', category: '' },
+    { label: 'All', variant: 'secondary', category: '' },
     { label: 'Actors', variant: 'secondary', category: 'actor' },
     { label: 'Presidents', variant: 'secondary', category: 'president' },
     { label: 'Cartoons', variant: 'secondary', category: 'cartoons' },
@@ -162,14 +162,14 @@ export default function HeroSwiper() {
   
       <Swiper
         direction={'horizontal'}
-        slidesPerView={8}
-        spaceBetween={5}
+        slidesPerView={4}
+        spaceBetween={55}
         slidesPerGroup={3}
         mousewheel={true}
         navigation={true}
         freeMode={true}
         modules={[Mousewheel, FreeMode, Navigation]}
-        className="CatSwiper left-5"
+        className=""
       >
         {categoryButtons.map((button, index) => (
           <SwiperSlide key={index}> 
@@ -198,7 +198,7 @@ export default function HeroSwiper() {
             <SwiperSlide key={index}>{slide}</SwiperSlide>
           ))
         ) : (
-          <div className='justify-center items-center mr-0'>No results found</div>
+          <div className='mt-2 flex justify-center items-center mr-0'>No results found</div>
         )}
       </Swiper>
       
