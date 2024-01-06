@@ -57,6 +57,7 @@
     "zustand": "^4.3.9"
   },
   "devDependencies": {
-    "prisma": "^5.7.1"
+    "prisma": "^5.7.1",
+    "tsconfig-paths-webpack-plugin": "^4.1.0"
   }
 }
