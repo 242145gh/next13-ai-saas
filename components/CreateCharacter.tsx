@@ -39,7 +39,7 @@ const CreateCharacter: React.FC = () => {
   useEffect(() => {
     // Fetch characters from JSON file on component mount using Axios
     axios
-      .get('./app/api/characters.json')
+      .get('/data.json')
       .then((response) => {
         const data = response.data;
         const loadedSlides = data.map((character: any) => (
