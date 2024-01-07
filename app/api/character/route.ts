@@ -30,7 +30,7 @@ async function updateCharactersInFile(newCharacter: any) {
   try {
     // Update the path to the characters.json file
     // locally this directory const filePath = './public/characters.json';
-    const filePath = './static/characters.json';
+    const filePath = './app/api/character/characters.json';
     // Read the current content of characters.json
     const currentCharacters = await fs.readFile(filePath, 'utf-8');
     const charactersData = JSON.parse(currentCharacters);

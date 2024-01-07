@@ -54,5 +54,21 @@
     "url": "/jimmyjim",
     "description": "Jim",
     "category": "Jim"
+  },
+  {
+    "name": "Jim ",
+    "icon": "IconComponent",
+    "image": "/placeholder.jpg",
+    "url": "/jim-",
+    "description": "gond",
+    "category": "hjom"
+  },
+  {
+    "name": "jam",
+    "icon": "IconComponent",
+    "image": "/placeholder.jpg",
+    "url": "/jam",
+    "description": "jam",
+    "category": "jam"
   }
 ]
