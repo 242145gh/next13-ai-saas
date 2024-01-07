@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextApiResponse } from "next";
 import fs from 'fs/promises';
 
-export async function POST(req: Request) {
+export default async function POST(req: Request, res: NextApiResponse) {
   try {
     // Parse the incoming JSON data
     const newCharacter = await req.json();
@@ -16,21 +16,12 @@ export async function POST(req: Request) {
       await updateCharactersInFile(character);
     }
 
-    // Return a JSON success response
-    return new NextResponse({
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: "Character updated successfully" }),
-    });
+    res.status(200).json({ message: "Character updated successfully" });
   } catch (error) {
     console.error("Error handling the request:", error);
 
-    // Return a JSON error response
-    return new NextResponse({
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: "Internal Server Error" }),
-    });
+     // Return a JSON error response
+     res.status(500).json({ error: "Internal Server Error" });
   }
 }
 
