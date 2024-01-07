@@ -30,16 +30,16 @@ async function updateCharactersInFile(newCharacter: any) {
   try {
     // Update the path to the characters.json file
     // locally this directory const filePath = './public/characters.json';
-    const filePath = './app/api/character/characters.json';
+    const filePath = '/characters.json';
     // Read the current content of characters.json
-    const currentCharacters = await fs.readFile(filePath, 'utf-8');
+    const currentCharacters = await fs.readFile(process.cwd() + filePath, 'utf-8');
     const charactersData = JSON.parse(currentCharacters);
 
     // Add the new character entry to charactersData
     charactersData.push(newCharacter);
 
     // Write the updated data back to characters.json
-    await fs.writeFile(filePath, JSON.stringify(charactersData, null, 2), 'utf-8');
+    await fs.writeFile(filePath, JSON.stringify(process.cwd() + charactersData, null, 2), 'utf-8');
   } catch (error: any) {
     throw new Error(`Error updating characters in file: ${error.message}`);
   }
