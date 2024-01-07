@@ -7,6 +7,7 @@ const nextConfig = {
       "cdn.openai.com"
     ]
   },
+
 }
 
 module.exports = nextConfig
