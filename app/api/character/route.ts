@@ -1,29 +1,33 @@
-import { NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next'
 import fs from 'fs/promises';
-
-export default async function POST(req: Request, res: NextApiResponse) {
-  try {
-    // Parse the incoming JSON data
-    const newCharacter = await req.json();
-
-    // Ensure newCharacter is an array
-    if (!Array.isArray(newCharacter)) {
-      throw new Error('Invalid data format. Expected an array.');
-    }
-
-    // Iterate over each character and update the file
-    for (const character of newCharacter) {
-      await updateCharactersInFile(character);
-    }
-
-    res.status(200).json({ message: "Character updated successfully" });
-  } catch (error) {
-    console.error("Error handling the request:", error);
-
-     // Return a JSON error response
-     res.status(500).json({ error: "Internal Server Error" });
-  }
+type ResponseData = {
+  message: string
 }
+
+export async function POST(req: Request, res: Response) {
+
+
+      try {
+        // Parse the incoming JSON data
+        const newCharacter = await req.json();
+
+        // Ensure newCharacter is an array
+        if (!Array.isArray(newCharacter)) {
+          throw new Error('Invalid data format. Expected an array.');
+        }
+
+        // Iterate over each character and update the file
+        for (const character of newCharacter) {
+          await updateCharactersInFile(character);
+        }
+
+        return new Response("Hello, 200 Next.js!");
+      } catch (error) {
+        console.error("Error handling the request:", error);
+
+        return new Response("Hello, 500 Next.js!");
+      }
+
 
 async function updateCharactersInFile(newCharacter: any) {
   try {
@@ -42,4 +46,5 @@ async function updateCharactersInFile(newCharacter: any) {
   } catch (error) {
     throw new Error(`Error updating characters in file: ${error.message}`);
   }
+}
 }
