@@ -1,10 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import fs from 'fs/promises';
-type ResponseData = {
-  message: string
-}
 
-export async function POST(req: Request, res: Response) {
+import fs from 'fs/promises';
+
+export async function POST(req: Request) {
 
 
       try {
@@ -22,7 +19,7 @@ export async function POST(req: Request, res: Response) {
         }
 
         return new Response("Hello, 200 Next.js!");
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error handling the request:", error);
 
         return new Response("Hello, 500 Next.js!");
