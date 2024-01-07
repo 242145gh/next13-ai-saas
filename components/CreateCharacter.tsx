@@ -8,6 +8,7 @@ import Heros from './hero';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import axios from 'axios'; // Import Axios
+import { any } from 'zod';
 
 interface HeroProps {
   children: React.ReactElement<HeroProps, string | React.JSXElementConstructor<any>>;
@@ -20,34 +21,25 @@ interface HeroProps {
   category: string;
 }
 
-interface Character {
-  name: string;
-  category: string;
-  description: string;
-  image: string;
-  
-}
-
-const initialCharacter: Character = {
-  name: '',
-  category: '',
-  description: '',
-  image: '',
-};
-
-const initialErrors: { [key in keyof Character]?: string } = {};
-
-
 const CreateCharacter: React.FC = () => {
-  const [newCharacter, setNewCharacter] = useState<Character>(initialCharacter);
+  const [newCharacter, setNewCharacter] = useState({
+    name: '',
+    category: '',
+    description: '',
+    image: '',
+  });
 
   const [slides, setSlides] = useState<React.ReactElement<HeroProps>[]>([]);
- const [formErrors, setFormErrors] = useState<{ [key in keyof Character]?: string }>(initialErrors);
+  const [formErrors, setFormErrors] = useState({
+    name: '',
+    category: '',
+    description: '',
+  });
 
   useEffect(() => {
     // Fetch characters from JSON file on component mount using Axios
     axios
-      .get('./public/characters.json')
+      .get('/characters.json')
       .then((response) => {
         const data = response.data;
         const loadedSlides = data.map((character: any) => (
@@ -68,8 +60,6 @@ const CreateCharacter: React.FC = () => {
       .catch((error) => console.error('Error fetching characters:', error));
   }, []);
 
-
-
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
     if (!newCharacter.name.trim()) {
@@ -81,7 +71,7 @@ const CreateCharacter: React.FC = () => {
     if (!newCharacter.description.trim()) {
       errors.description = 'Description is required';
     }
-    setFormErrors(errors);
+    setFormErrors(errors as any);
     return Object.keys(errors).length === 0; // Return true if there are no errors
   };
 
@@ -90,35 +80,24 @@ const CreateCharacter: React.FC = () => {
       // Don't proceed if the form is not valid
       return;
     }
-
-    // Update newCharacter state with the current form values
     setNewCharacter((prevCharacter) => ({
       ...prevCharacter,
       url: `/${prevCharacter.name.toLowerCase().replace(/\s+/g, '-')}`,
     }));
-
-    // Extract relevant data from slides to create updatedCharacters array
-    const updatedCharacters = slides.map((slide, index) => ({
-      name: `Character${index + 1}`,
-      icon: 'IconComponent',
-      image: '/placeholder.jpg',
-      url: `/${newCharacter.name.toLowerCase().replace(/\s+/g, '-')}`,
-      description: 'This is a sample character.',
-      category: 'Fantasy',
-    }));
-
-    updatedCharacters.push({
+  
+    // Prepare the new character data
+    const newCharacterData = {
       name: newCharacter.name,
       icon: 'IconComponent',
       image: newCharacter.image || '/placeholder.jpg',
       url: `/${newCharacter.name.toLowerCase().replace(/\s+/g, '-')}`,
       description: newCharacter.description,
       category: newCharacter.category,
-    });
-
+    };
+  
     try {
-      // Send only the data needed (updatedCharacters) to the server
-      await axios.post('/api/character', updatedCharacters, {
+      // Send only the data needed (newCharacterData) to the server
+      await axios.post('/api/character', [newCharacterData], {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -126,7 +105,7 @@ const CreateCharacter: React.FC = () => {
     } catch (error) {
       console.error('Error updating characters:', error);
     }
-
+  
     // Update state with the new slide
     setSlides([
       <SwiperSlide key={newCharacter.name}>
@@ -141,7 +120,7 @@ const CreateCharacter: React.FC = () => {
       </SwiperSlide>,
       ...slides, // Keep the existing slides
     ]);
-
+  
     // Clear the form
     setNewCharacter({ name: '', category: '', description: '', image: '' });
   };
@@ -178,9 +157,10 @@ const CreateCharacter: React.FC = () => {
         className="container mx-auto mt-8 p-4 bg-gradient-to-r from-purple-500 to-pink-500 border-purple-500 border-10 rounded-lg shadow-md"
       >
         {Object.values(formErrors).some((error) => error !== '') && (
-          <div className="mt-1 p-1 border-2 border-red-500 rounded-md text-white-500 text-sm w-1/2 mx-auto flex justify-center items-center">
-  Please fill out all required fields.
-</div>          )}
+        <div className="mt-1 p-1 border-2 border-red-500 rounded-md text-white-500 text-sm w-1/2 mx-auto flex justify-center items-center w-3/4">
+          Please fill out all required fields.
+        </div>          
+        )}
         <div className="mt-2 grid grid-cols-2 gap-4">
           <Input
             type="text"
@@ -242,9 +222,9 @@ const CreateCharacter: React.FC = () => {
           modules={[Mousewheel, Navigation, FreeMode]}
           className="HeroSwiper mt-8"
         >
-          {slides.map((slide, index) => (
+          {/*slides.map((slide, index) => (
             <SwiperSlide key={index}>{slide}</SwiperSlide>
-          ))}
+          ))*/}
         </Swiper>
       </>
     );

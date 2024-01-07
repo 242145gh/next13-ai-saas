@@ -17,8 +17,10 @@ export const LandingHero = () => {
           <TypewriterComponent
             options={{
               strings: [
-                "Chat with your Idols, Actors, Carton Charachters, Predsidents, Heros and more ---> ",
-                "Make your own ai character in seconds",
+                "Chat with famous people - Cartons - Predsidents - Heros - Rockstars",
+                "Create your own Ai Character using an advanced WS ENGINE",
+                "Harness Wisdom Sources powerful ai engine"
+                
                 ],
               autoStart: true,
               loop: true,

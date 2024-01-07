@@ -1,24 +1,40 @@
-import { NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import fs from 'fs/promises';
 
-
-
-export async function POST(req: Request, res: NextApiResponse ) {
+export async function POST(req: Request) {
   try {
     // Parse the incoming JSON data
-    const updatedCharacters = await req.json();
+    const newCharacter = await req.json();
 
-    await updateCharactersInFile(updatedCharacters);
+    // Ensure newCharacter is an array
+    if (!Array.isArray(newCharacter)) {
+      throw new Error('Invalid data format. Expected an array.');
+    }
 
-    return res.status(200).json({ message: "Success" });
+    // Iterate over each character and update the file
+    for (const character of newCharacter) {
+      await updateCharactersInFile(character);
+    }
+
+    // Return a JSON success response
+    return new NextResponse({
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: "Character updated successfully" }),
+    });
   } catch (error) {
     console.error("Error handling the request:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
- 
+
+    // Return a JSON error response
+    return new NextResponse({
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: "Internal Server Error" }),
+    });
   }
 }
 
-async function updateCharactersInFile(updatedCharacters: any) {
+async function updateCharactersInFile(newCharacter: any) {
   try {
     // Update the path to the characters.json file
     const filePath = './public/characters.json';
@@ -27,20 +43,12 @@ async function updateCharactersInFile(updatedCharacters: any) {
     const currentCharacters = await fs.readFile(filePath, 'utf-8');
     const charactersData = JSON.parse(currentCharacters);
 
-    console.debug("character data", charactersData);
-    console.debug("updatedCharacters data", updatedCharacters);
-
-    // Assuming updatedCharacters is an array, update the charactersData
-    if (Array.isArray(updatedCharacters)) {
-      charactersData.push(...updatedCharacters);
-    } else {
-      throw new Error('Invalid data format. Expected an array.');
-    }
+    // Add the new character entry to charactersData
+    charactersData.push(newCharacter);
 
     // Write the updated data back to characters.json
     await fs.writeFile(filePath, JSON.stringify(charactersData, null, 2), 'utf-8');
-  } catch (error: any) {
-    
+  } catch (error) {
     throw new Error(`Error updating characters in file: ${error.message}`);
   }
 }
