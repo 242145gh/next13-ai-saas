@@ -30,7 +30,7 @@ async function updateCharactersInFile(newCharacter: any) {
     // Update the path to the characters.json file
     // locally this directory const filePath = './public/characters.json';
     
-    const filePath = '/tmp/data.json';
+    const filePath = process.cwd() + '/tmp/data.json';
 
     console.log(filePath);
 
