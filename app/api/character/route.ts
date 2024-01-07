@@ -29,8 +29,8 @@ export async function POST(req: Request) {
 async function updateCharactersInFile(newCharacter: any) {
   try {
     // Update the path to the characters.json file
-    const filePath = './public/characters.json';
-
+    // locally this directory const filePath = './public/characters.json';
+    const filePath = '/characters.json';
     // Read the current content of characters.json
     const currentCharacters = await fs.readFile(filePath, 'utf-8');
     const charactersData = JSON.parse(currentCharacters);
