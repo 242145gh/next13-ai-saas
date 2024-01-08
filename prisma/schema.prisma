@@ -30,7 +30,7 @@ model HerosChatCount {
   HeroName  String  
   category String 
   NumberOfMessages  Int @default(0)
-  Image  Bytes
+  Image  String @db.Text
   Url  String  
   Description  String @db.Text
 

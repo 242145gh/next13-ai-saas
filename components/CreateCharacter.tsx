@@ -89,13 +89,13 @@ const CreateCharacter: React.FC = () => {
     const newCharacterData = {
       name: newCharacter.name,
       icon: 'IconComponent',
-      image: newCharacter.image,
+      image: newCharacter.image || '/placeholder.jpg',
       url: `/${newCharacter.name.toLowerCase().replace(/\s+/g, '-')}`,
       description: newCharacter.description,
       category: newCharacter.category,
     };
   
-    console.debug(newCharacterData)
+    console.debug("before api request ", newCharacterData)
     try {
       // Send only the data needed (newCharacterData) to the server
       await axios.post('/api/character', [newCharacterData], {
