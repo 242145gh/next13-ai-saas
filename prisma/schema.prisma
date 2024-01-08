@@ -26,9 +26,12 @@ model UserSubscription {
 }
 
 model HerosChatCount {
-  id  String  @id @default(cuid())
-  HeroName  String @unique
+  id        String   @id @default(cuid())
+  HeroName  String  
+  category String 
   NumberOfMessages  Int @default(0)
+  Image  Bytes
+  Url  String  
+  Description  String @db.Text
+
 }
-
-

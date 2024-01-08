@@ -24,6 +24,8 @@ interface HeroProps {
 export default function HeroSwiper() {
   const [searchName, setSearchName] = useState('');
   const [searchCategory, setSearchCategory] = useState('');
+  const [data, setDBdata]  = useState('');
+
 
   const handleSearch = () => {
     // Filter your slides based on searchName and searchCategory here
@@ -47,6 +49,8 @@ export default function HeroSwiper() {
     { label: 'Cartoons', variant: 'secondary', category: 'cartoons' },
     // Add more buttons as needed with their respective categories
   ];
+
+  const slideData = fetch("/api/retreive");
 
   const slides: ReactElement<HeroProps>[] = [
     <SwiperSlide key="rocky">
@@ -193,6 +197,7 @@ export default function HeroSwiper() {
         modules={[Mousewheel, Navigation, FreeMode]}
         className="HeroSwiper"
       >
+        
         {handleSearch().length > 0 ? (
           handleSearch().map((slide, index) => (
             <SwiperSlide key={index}>{slide}</SwiperSlide>

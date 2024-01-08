@@ -25,9 +25,10 @@ interface HeroResponse {
   
 }
 
-const Heros: React.FC<HeroProps> = ({ icon: IconComponent, image, name, url,description,category }) => {
+const Heros: React.FC<HeroProps> = ({ icon: IconComponent, image, name, url,description }) => {
   const [response, setResponse] = useState<Hero[]>([]);
- 
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,7 +39,6 @@ const Heros: React.FC<HeroProps> = ({ icon: IconComponent, image, name, url,desc
 
         const { data }: HeroResponse = await axios.post('/api/cmessage', { name });
         setResponse(data);
-    
 
         // Optional: Log the response
         console.log('Data fetched:', data);
@@ -57,9 +57,6 @@ const Heros: React.FC<HeroProps> = ({ icon: IconComponent, image, name, url,desc
   }, [name]); // Dependency array, re-run effect when 'name' changes
 
   const hero = response.find((h) => h.HeroName === name);
-  if(hero){
-    console.log("exists: vrous")
-  }
   const maxLength = 75;
 
   function limitCharacters(inputString: string, maxLength: number) {
