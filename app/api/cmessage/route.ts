@@ -6,12 +6,12 @@ import prismadb from '@/lib/prismadb';
 export async function POST(req: Request, name: string) {
   try {
     // Fetch data from the database using Prisma
-    const messageCount = await prismadb.herosChatCount.findMany({
+    const allRecords = await prismadb.herosChatCount.findMany({
       where: { HeroName: name },
     });
     
     // Send the data as a JSON response
-    return NextResponse.json(messageCount);
+    return  NextResponse.json(allRecords);
 
   } catch (error) {
     // Handle errors and send an appropriate response

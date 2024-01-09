@@ -7,8 +7,10 @@ import { ImageIcon } from 'lucide-react';
 import Heros from './hero';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+
 import axios from 'axios'; // Import Axios
 import { any } from 'zod';
+import  image  from 'next/image';
 
 interface HeroProps {
   children: React.ReactElement<HeroProps, string | React.JSXElementConstructor<any>>;
@@ -119,7 +121,7 @@ const CreateCharacter: React.FC = () => {
           category={newCharacter.category}
         />
       </SwiperSlide>,
-      ...slides, // Keep the existing slides
+      ...slides, // Keep the existing slidesx
     ]);
   
     // Clear the form
@@ -138,7 +140,7 @@ const CreateCharacter: React.FC = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        const imageDataUrl = event.target?.result as string;
+        const imageDataUrl = event.target?.result as string
         setNewCharacter((prevCharacter) => ({ ...prevCharacter, image: imageDataUrl }));
       };
       reader.readAsDataURL(file);

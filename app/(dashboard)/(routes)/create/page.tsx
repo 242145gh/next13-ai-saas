@@ -4,8 +4,8 @@ import { ImageIcon } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { Heading } from "@/components/heading";
 
-import cr from "@/components/HeroSwiper";
-import CreateCharacter from "@/components/CreateCharacter";
+
+import CreateCharacter from "@/components/create-character";
 
 
 const CreatePage = () => {

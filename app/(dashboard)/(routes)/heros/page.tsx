@@ -3,7 +3,7 @@
 import { MessageCircle } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { Heading } from "@/components/heading";
-import HeroSwiper from "@/components/HeroSwiper";
+import {Heros} from "@/components/hero";
 
 const HeroPage = () => {
   const router = useRouter();
@@ -18,7 +18,7 @@ const HeroPage = () => {
         />
     </div>
       
-      <HeroSwiper />
+      <Heros  image={""} name={""} url={""} description={""} category={""} icon={MessageCircle}  />
       
    </>
    );
