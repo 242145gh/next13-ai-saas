@@ -6,9 +6,10 @@ import { FreeMode, Mousewheel, Navigation } from 'swiper/modules';
 import { MessageCircleIcon } from 'lucide-react';
 import Heros from './hero';
 import { Button } from '@/components/ui/button';
-import Select from 'react-select';
+
 import { Input } from '@/components/ui/input';
-import TypewriterComponent from 'typewriter-effect';
+import axios from 'axios';
+
 
 interface HeroProps {
   children: ReactElement<HeroProps, string | JSXElementConstructor<any>>;
@@ -49,8 +50,6 @@ export default function HeroSwiper() {
     { label: 'Cartoons', variant: 'secondary', category: 'cartoons' },
     // Add more buttons as needed with their respective categories
   ];
-
-  const slideData = fetch("/api/retreive");
 
   const slides: ReactElement<HeroProps>[] = [
     <SwiperSlide key="rocky">

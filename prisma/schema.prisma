@@ -27,10 +27,10 @@ model UserSubscription {
 
 model HerosChatCount {
   id        String   @id @default(cuid())
-  HeroName  String  
+  HeroName  String  @unique
   category String 
   NumberOfMessages  Int @default(0)
-  Image  String @db.Text
+  Image String @db.Text
   Url  String  
   Description  String @db.Text
 

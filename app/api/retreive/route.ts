@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
-export async function POST(req: Request) {
+export default async function POST(req: Request) {
   try {
-    
-    const existingHero = await prismadb.herosChatCount.findMany({
-      where: {HeroName: undefined}
-    }
-    );
-    
+    // Assuming you want to retrieve data from prismadb.herosChatCount
+    const chatCountData = await prismadb.herosChatCount.findUnique({
+      where: { HeroName: "Super Woman"  }
+    });
 
-    return new NextResponse("got all records", { status: 200 });
+    // You can do something with the retrieved data here
+   // console.log("Retrieved data:", chatCountData);
 
+    // Return a response
+    return new NextResponse("Got all records", { status: 200 });
   } catch (error) {
     console.error(error);
     return new NextResponse("Internal Server Error", { status: 500 });
