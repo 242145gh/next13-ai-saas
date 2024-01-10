@@ -7,10 +7,10 @@ import { ImageIcon } from 'lucide-react';
 import Heros from './hero';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import axios from 'axios';
+import {Loader} from '@/components/loader';
 
-import axios from 'axios'; // Import Axios
-import { any } from 'zod';
-import  image  from 'next/image';
+
 
 interface HeroProps {
   children: React.ReactElement<HeroProps, string | React.JSXElementConstructor<any>>;
@@ -38,8 +38,10 @@ const CreateCharacter: React.FC = () => {
     description: '',
   });
 
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   useEffect(() => {
-    // Fetch characters from JSON file on component mount using Axios
     axios
       .get('/data.json')
       .then((response) => {
@@ -74,58 +76,38 @@ const CreateCharacter: React.FC = () => {
       errors.description = 'Description is required';
     }
     setFormErrors(errors as any);
-    return Object.keys(errors).length === 0; // Return true if there are no errors
+    return Object.keys(errors).length === 0;
   };
 
   const addNewCharacter = async () => {
     if (!validateForm()) {
-      // Don't proceed if the form is not valid
       return;
     }
-    setNewCharacter((prevCharacter) => ({
-      ...prevCharacter,
-      url: `/${prevCharacter.name.toLowerCase().replace(/\s+/g, '-')}`,
-    }));
-  
-    // Prepare the new character data
-    const newCharacterData = {
-      name: newCharacter.name,
-      icon: 'IconComponent',
-      image: newCharacter.image || '/placeholder.jpg',
-      url: `/${newCharacter.name.toLowerCase().replace(/\s+/g, '-')}`,
-      description: newCharacter.description,
-      category: newCharacter.category,
-    };
-  
-    console.debug("before api request ", newCharacterData)
+
+    setLoading(true);
+
     try {
-      // Send only the data needed (newCharacterData) to the server
+      const newCharacterData = {
+        name: newCharacter.name,
+        icon: 'IconComponent',
+        image: newCharacter.image || '/placeholder.jpg',
+        url: `/${newCharacter.name.toLowerCase().replace(/\s+/g, '-')}`,
+        description: newCharacter.description,
+        category: newCharacter.category,
+      };
+
       await axios.post('/api/character', [newCharacterData], {
         headers: {
           'Content-Type': 'application/json',
         },
       });
+
+      setSuccess(true);
     } catch (error) {
       console.error('Error updating characters:', error);
     }
-  
-    // Update state with the new slide
-    setSlides([
-      <SwiperSlide key={newCharacter.name}>
-        <Heros
-          icon={ImageIcon}
-          image={newCharacter.image || '/placeholder.jpg'}
-          name={newCharacter.name}
-          url={`/${newCharacter.name.toLowerCase().replace(/\s+/g, '-')}`}
-          description={newCharacter.description}
-          category={newCharacter.category}
-        />
-      </SwiperSlide>,
-      ...slides, // Keep the existing slidesx
-    ]);
-  
-    // Clear the form
-    setNewCharacter({ name: '', category: '', description: '', image: '' });
+
+    setLoading(false);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -140,7 +122,7 @@ const CreateCharacter: React.FC = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        const imageDataUrl = event.target?.result as string
+        const imageDataUrl = event.target?.result as string;
         setNewCharacter((prevCharacter) => ({ ...prevCharacter, image: imageDataUrl }));
       };
       reader.readAsDataURL(file);
@@ -154,15 +136,24 @@ const CreateCharacter: React.FC = () => {
 
   return (
     <>
-      {/* Form to add a new character */}
       <form
         onSubmit={handleFormSubmit}
-        className="container mx-auto mt-8 p-4 bg-gradient-to-r from-purple-500 to-pink-500 border-purple-500 border-10 rounded-lg shadow-md"
+        className="container mx-auto mt-8 p-4 bg-gradient-to-r from-purple-500 to-pink-500 border-purple-500 border-10 rounded-lg shadow-md relative"
       >
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <Loader />
+          </div>
+        )}
+        {success && (
+          <div className="absolute inset-0 flex items-center justify-center bg-green-500 bg-opacity-75 text-white text-xl font-bold">
+            Character added successfully!
+          </div>
+        )}
         {Object.values(formErrors).some((error) => error !== '') && (
-        <div className="mt-1 p-1 border-2 border-red-500 rounded-md text-white-500 text-sm w-1/2 mx-auto flex justify-center items-center w-3/4">
-          Please fill out all required fields.
-        </div>          
+          <div className="mt-1 p-1 border-2 border-red-500 rounded-md text-white-500 text-sm w-1/2 mx-auto flex justify-center items-center w-3/4">
+            Please fill out all required fields.
+          </div>
         )}
         <div className="mt-2 grid grid-cols-2 gap-4">
           <Input
@@ -185,53 +176,50 @@ const CreateCharacter: React.FC = () => {
               formErrors.category ? 'border-red-500' : 'border-purple-500'
             }`}
           />
-          </div>
-          <Input
-            type="text"
-            name="description"
-            placeholder="Description"
-            value={newCharacter.description}
-            onChange={handleInputChange}
-            className={`p-2 mt-4 border-2 rounded-lg focus:outline-none ${
-              formErrors.description ? 'border-red-500' : 'border-purple-500'
-            }`}
-          />
-          <Input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="mt-4"
-          />
-          <Button
-            variant="secondary"
-            type="submit"
-            className="p-2 text-white rounded-lg hover:bg-pink-600 focus:outline-none mt-4"
-          >
-            Add Character
-          </Button>
-          
-        </form>
-  
-        {/* Swiper component for displaying characters */}
-        <Swiper
-          direction={'horizontal'}
-          slidesPerView={5}
-          spaceBetween={5}
-          slidesPerGroup={5}
-          mousewheel={true}
-          navigation={true}
-          freeMode={true}
-          modules={[Mousewheel, Navigation, FreeMode]}
-          className="HeroSwiper mt-8"
+        </div>
+        <Input
+          type="text"
+          name="description"
+          placeholder="Description"
+          value={newCharacter.description}
+          onChange={handleInputChange}
+          className={`p-2 mt-4 border-2 rounded-lg focus:outline-none ${
+            formErrors.description ? 'border-red-500' : 'border-purple-500'
+          }`}
+        />
+        <Input
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="mt-4"
+        />
+        <Button
+          variant="secondary"
+          type="submit"
+          className="p-2 text-white rounded-lg hover:bg-pink-600 focus:outline-none mt-4"
         >
-          {/*slides.map((slide, index) => (
-            <SwiperSlide key={index}>{slide}</SwiperSlide>
-          ))*/}
-        </Swiper>
-      </>
-    );
-  };
-  
-  export default CreateCharacter;
-  
+          Add Character
+        </Button>
+      </form>
+
+      <Swiper
+        direction={'horizontal'}
+        slidesPerView={5}
+        spaceBetween={5}
+        slidesPerGroup={5}
+        mousewheel={true}
+        navigation={true}
+        freeMode={true}
+        modules={[Mousewheel, Navigation, FreeMode]}
+        className="HeroSwiper mt-8"
+      >
+        {/* slides.map((slide, index) => (
+          <SwiperSlide key={index}>{slide}</SwiperSlide>
+        )) */}
+      </Swiper>
+    </>
+  );
+};
+
+export default CreateCharacter;

@@ -43,6 +43,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.1",
     "react-hot-toast": "^2.4.1",
+    "react-loader-spinner": "^6.1.6",
     "react-markdown": "^8.0.7",
     "react-select": "^5.8.0",
     "replicate": "^0.12.3",

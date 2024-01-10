@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Montserrat } from 'next/font/google'
-import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from "lucide-react";
+import { Group, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -32,6 +32,14 @@ const routes = [
       label: 'Create Chararacter',
       icon: ImageIcon,
       href: '/create',
+      color: "text-violet-500",
+      bgColor: "bg-violet-500/10",
+    },
+
+    {
+      label: 'Enter Group Chat',
+      icon: Group,
+      href: '/Group',
       color: "text-violet-500",
       bgColor: "bg-violet-500/10",
     },

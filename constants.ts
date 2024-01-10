@@ -1,4 +1,4 @@
-import { Code, ImageIcon, MessageSquare, Music, VideoIcon } from "lucide-react";
+import { Group, ImageIcon, MessageSquare, Music, VideoIcon } from "lucide-react";
 
 export const MAX_FREE_COUNTS = 5222;
 
@@ -14,6 +14,13 @@ export const tools = [
       label: 'Create Chararacter',
       icon: ImageIcon,
       href: '/create',
+      color: "text-violet-500",
+      bgColor: "bg-violet-500/10",
+    },
+    {
+      label: 'Enter Group Chat',
+      icon: Group,
+      href: '/Group',
       color: "text-violet-500",
       bgColor: "bg-violet-500/10",
     },
