@@ -4,9 +4,7 @@ import prismadb from "@/lib/prismadb";
 export default async function POST(req: Request) {
   try {
     // Assuming you want to retrieve data from prismadb.herosChatCount
-    const chatCountData = await prismadb.herosChatCount.findUnique({
-      where: { HeroName: "Super Woman"  }
-    });
+    const chatCountData = await prismadb.herosChatCount.findMany();
 
     // You can do something with the retrieved data here
    // console.log("Retrieved data:", chatCountData);

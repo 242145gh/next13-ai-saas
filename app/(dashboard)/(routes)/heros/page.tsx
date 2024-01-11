@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageCircle } from "lucide-react"
+import { Menu, MessageCircle } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { Heading } from "@/components/heading";
 import {Heros} from "@/components/hero";
@@ -18,7 +18,7 @@ const HeroPage = () => {
         />
     </div>
       
-      <Heros  image={""} name={""} url={""} description={""} category={""} icon={MessageCircle}  />
+      <Heros  MessageCircle={MessageCircle} Menu={Menu} HeroName={""} NumberOfMessages={0} Description={""} Image={""} id={0} category={""} Url={""}/>
       
    </>
    );

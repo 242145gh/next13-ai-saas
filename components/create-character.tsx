@@ -41,28 +41,7 @@ const CreateCharacter: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get('/data.json')
-      .then((response) => {
-        const data = response.data;
-        const loadedSlides = data.map((character: any) => (
-          <SwiperSlide key={character.name}>
-            <Heros
-              icon={ImageIcon}
-              image={character.image || '/placeholder.jpg'}
-              name={character.name}
-              url={`/${character.name.toLowerCase().replace(/\s+/g, '-')}`}
-              description={character.description}
-              category={character.category}
-            />
-          </SwiperSlide>
-        ));
-
-        setSlides(loadedSlides);
-      })
-      .catch((error) => console.error('Error fetching characters:', error));
-  }, []);
+s
 
   const validateForm = () => {
     const errors: { [key: string]: string } = {};

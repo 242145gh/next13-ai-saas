@@ -31,24 +31,19 @@ export async function POST(req: Request) {
   }
 }
 
-
 async function updateCharacterInDatabase(character: any) {
   try {
-
     const createData = {
-      id: undefined,
       HeroName: character.name,
       category: character.category,
       NumberOfMessages: 0,
       Image: character.image,
       Url: character.url,
-      Description: character.description,
-  
+      Description: character.description
     }
-
     
     const existingHero = await prismadb.herosChatCount.findUnique({
-      where: { id: ""  }
+      where: { id: createData.HeroName }
     });
 
     if (!existingHero) {
@@ -61,29 +56,3 @@ async function updateCharacterInDatabase(character: any) {
     throw new Error(`Error updating character in the database: ${error.message}`);
   }
 }
-
-// Uncomment the following block if you need to update characters in a file
-/*
-async function updateCharactersInFile(newCharacter: any) {
-  try {
-    // Update the path to the characters.json file
-    // const filePath = './public/characters.json';
-    
-    // const filePath = process.cwd() + '/tmp/data.json';
-    
-    // Read the current content of characters.json
-    const currentCharacters = await fs.readFile(filePath, 'utf-8');
-    const charactersData = JSON.parse(currentCharacters);
-    charactersData.push(newCharacter);
-
-    // Add the new character entry to charactersData
-  
-    // serverless no file storage writing can't do. 
-
-    // Write the updated data back to characters.json
-    await fs.writeFile(filePath, JSON.stringify(charactersData, null, 2), 'utf-8');
-  } catch (error: any) {
-    throw new Error(`Error updating characters in file: ${error.message}`);
-  }
-}
-*/
