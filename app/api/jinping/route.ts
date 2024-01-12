@@ -57,7 +57,7 @@ export async function POST(
     }
 
     const HerosChatCount = await prismadb.herosChatCount.findUnique({
-      where: { id: "Xi Jinping"   },
+      where: { HeroName: "Xi Jinping"   },
     });
     
     if (HerosChatCount) {

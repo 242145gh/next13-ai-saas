@@ -41,7 +41,7 @@ const CreateCharacter: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-s
+
 
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
