@@ -12,6 +12,9 @@
     }
 }
 
+.members{
+    color:#fff;
+}
 .glowOnHover:hover {
     animation: glow 1s infinite;
 }

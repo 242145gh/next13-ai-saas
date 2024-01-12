@@ -11,6 +11,8 @@ import { Input } from '@/components/ui/input'; // Replace with actual path
 import { Button } from '@/components/ui/button'; // Replace with actual path
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import toast from 'react-hot-toast';
+import { AvatarImage } from './ui/avatar';
+import { Avatar } from '@radix-ui/react-avatar';
 
 interface Hero {
   HeroName: string;
@@ -55,6 +57,13 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
       return; // Do not add duplicate members
     }
 
+
+    if (groupMembers.length >= 4) {
+      toast.error("Maximum Chat Room Member limit (4) reached!");
+      setIsDialogOpen(true);
+      return;
+    }
+
     // Generate a unique id for the new group member
     const newMemberId = groupMembers.length + 1;
 
@@ -70,7 +79,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
     console.log(`Adding ${slide.HeroName} to the group`);
 
     // Use setTimeout to log the updated groupMembers after the state is guaranteed to be updated
-    if (newMemberId >= 1) {
+    if (newMemberId >= 4) {
       setIsDialogOpen(true);
       setTimeout(() => {
         console.debug(`Start Room with: ${groupMembers.map(member => member.GroupMember).join(', ')}`);
@@ -122,6 +131,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
     // Perform form validation
     let isValid = true;
 
+  
     if (nameRoom.trim() === '') {
       setFormErrors((prevErrors) => ({ ...prevErrors, nameRoom: 'Name is required' }));
       isValid = false;
@@ -269,54 +279,95 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
         )}
       </Swiper>
 
-      <Dialog open={isDialogOpen} onOpenChange={handleDialogClose}>
-        <DialogTitle>CREATE ROOM</DialogTitle>
-        <DialogContent className=''>
-          <h1 className='flex items-center justify-center text-xl text-white-100 font-bold'>
-            Start a Chat Room
-          </h1>
-          <div className='flex items-center justiy-center p-2 mt-5'>
-            <div className='text-lg text-violet-300'>
-              {groupMembers.map(member => member.GroupMember).join(', ')}
-            </div>
-            <div className='grid grid-column-1'>
-              Name the Room:
-              <div className='grid grid-columm-2'>
-                <Input 
-                  type="text"
-                  placeholder="Name the Room!"
-                  value={nameRoom}
-                  onChange={(e) => setNameRoom(e.target.value)}
-                  className={`p-2 mt-4 border-2 rounded-lg focus:outline-none ${
-                    formErrors.nameRoom ? 'border-red-500' : 'border-purple-500'
-                  }`}
-                />
-                {formErrors.nameRoom && (
-                  <div className="text-red-500 text-sm mt-1">{formErrors.nameRoom}</div>
+    <Dialog open={isDialogOpen} onOpenChange={handleDialogClose}>
+  <DialogTitle>CREATE ROOM</DialogTitle>
+  <DialogContent>
+    <h1 className='flex items-center justify-center text-xl text-white-100 font-bold'>
+      Start a Chat Room
+    </h1>
+    <div className='grid grid-cols-2 gap-4 items-center justify-center p-2'>
+      <div>
+        <div className='text-lg text-violet-300 p-2 text-white-100 mb-55'>
+          Chat Room Members:
+        </div>
+        <div className='text-lg text-violet-500 p-2 text-white-200 relative'>
+          {groupMembers.map((member, index) => (
+            <React.Fragment key={member.id}>
+              {/*member.GroupMember*/}
+              <Avatar
+                className="h-10 w-10 rounded-lg  border-violet-500"
+                style={{
+                  zIndex: groupMembers.length - index, // Increase z-index for each member
+                  position: 'absolute',
+                  left: `${index * 1.5}rem`, // Adjust left position for spacing
+                  
+                }}
+              >
+                {/* Use optional chaining and nullish coalescing to handle undefined or null */}
+                {slides.find((slide) => slide.HeroName === member.GroupMember)?.Image && (
+                  <AvatarImage
+                    className="h-10 w-10 rounded-full border-2 border-violet-500 text-violet-500 bg-opacity-50 overflow-hidden"
+                    src={slides.find((slide) => slide.HeroName === member.GroupMember)?.Image || ''}
+                  />
                 )}
-              </div>
-            </div>
-            <div className='grid grid-column-1'>
-              Describe the room:
-              <div className='grid grid-columm-2'>
-                <Input    
-                  type="text"
-                  placeholder="What's the room about?"
-                  value={describeRoom}
-                  onChange={(e) => setDescribeRoom(e.target.value)}
-                  className={`p-2 mt-4 border-2 rounded-lg focus:outline-none ${
-                    formErrors.describeRoom ? 'border-red-500' : 'border-purple-500'
-                  }`}
-                />
-                {formErrors.describeRoom && (
-                  <div className="text-red-500 text-sm mt-1">{formErrors.describeRoom}</div>
-                )}
-              </div>
-            </div>
-            <Button variant="ghost" onClick={addChatRoom}>Create Room</Button>
+              </Avatar>
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+
+
+      <div className='grid grid-cols-1 gap-4'>
+        <div>
+          <div className='text-lg text-violet-300 p-2 text-white-100'>
+            Name the Room:
           </div>
-        </DialogContent>
-      </Dialog>
+          <div className='grid grid-cols-2'>
+            <Input
+              type="text"
+              placeholder="Name the Room!"
+              value={nameRoom}
+              onChange={(e) => setNameRoom(e.target.value)}
+              className={`p-2 mt-4 border-2 rounded-lg focus:outline-none ${
+                formErrors.nameRoom ? 'border-red-500' : 'border-purple-500'
+              }`}
+            />
+            {formErrors.nameRoom && (
+              <div className="text-red-500 text-sm mt-1">{formErrors.nameRoom}</div>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <div className='text-lg text-violet-300 p-2 text-white-100'>
+            Describe the room:
+          </div>
+          <div className='grid grid-cols-2'>
+            <Input
+              type="text"
+              placeholder="What's the room about?"
+              value={describeRoom}
+              onChange={(e) => setDescribeRoom(e.target.value)}
+              className={`p-2 mt-4 border-2 rounded-lg focus:outline-none ${
+                formErrors.describeRoom ? 'border-red-500' : 'border-purple-500'
+              }`}
+            />
+            {formErrors.describeRoom && (
+              <div className="text-red-500 text-sm mt-1">{formErrors.describeRoom}</div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="flex justify-center mt-4">
+      <Button variant="ghost" onClick={addChatRoom}>
+        Create Room
+      </Button>
+    </div>
+  </DialogContent>
+</Dialog>
+
+
     </div>
   );
 };
