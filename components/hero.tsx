@@ -14,6 +14,8 @@ import toast from 'react-hot-toast';
 import { AvatarImage } from './ui/avatar';
 import { Avatar } from '@radix-ui/react-avatar';
 
+
+
 interface Hero {
   HeroName: string;
   NumberOfMessages: number;
@@ -29,6 +31,7 @@ interface Hero {
 interface Group {
   id: number;
   GroupMember: string;
+ 
 }
 
 export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: MenuComponent }) => {
@@ -37,6 +40,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
   const [searchCategory, setSearchCategory] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState<number | null>(null);
   const [groupMembers, setGroupMembers] = useState<Group[]>([]);
+ 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formErrors, setFormErrors] = useState({
     nameRoom: '',
@@ -45,6 +49,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
   const [nameRoom, setNameRoom] = useState('');
   const [describeRoom, setDescribeRoom] = useState('');
 
+
   const handleMenuToggle = (index: number) => {
     setIsMenuOpen(isMenuOpen === index ? null : index);
   };
@@ -52,41 +57,75 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
   const handleAddToGroup = (slide: Hero) => {
     // Check if the member already exists in the group
     if (groupMembers.some((member) => member.GroupMember === slide.HeroName)) {
-      console.log(`${slide.HeroName} is in the group.`);
+      //console.log(`${slide.HeroName} is in the group.`);
       toast.error(` ${slide.HeroName} already added to room`);
       return; // Do not add duplicate members
     }
 
+   
+  
+    
 
-    if (groupMembers.length >= 4) {
-      toast.error("Maximum Chat Room Member limit (4) reached!");
-      setIsDialogOpen(true);
-      return;
-    }
-
+    if (groupMembers.length < 4) {
+      // Show toast with a choice to add more members or not
+      toast.success(
+        <>
+          <div>
+            Added {slide.HeroName} to room, do you want more members?
+          </div>
+          <div className="flex space-x-2 mt-4">
+            <button
+              onClick={() => {
+                toast.dismiss();
+              }}
+              className="bg-green-500 px-4 py-2 text-white rounded"
+            >
+              YES
+            </button>
+            <button
+              onClick={() => {
+                // User doesn't want more members
+                setIsDialogOpen(true); // Show the dialog
+                toast.dismiss();
+              }}
+              className="bg-red-500 px-4 py-2 text-white rounded"
+            >
+              NO
+            </button>
+          </div>
+        </>,
+        {
+          icon: '👥',
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+          duration: 3000, // Set a longer duration to give users time to decide
+        }
+      );
     // Generate a unique id for the new group member
     const newMemberId = groupMembers.length + 1;
-
     // Create a new group member object
     const newGroupMember: Group = {
       id: newMemberId,
       GroupMember: slide.HeroName,
-    };
+    
+    };  
+
+   
 
     // Update the group members state
     setGroupMembers((prevGroupMembers) => [...prevGroupMembers, newGroupMember]);
-    toast.success(`Added ${slide.HeroName} to room`);
-    console.log(`Adding ${slide.HeroName} to the group`);
-
-    // Use setTimeout to log the updated groupMembers after the state is guaranteed to be updated
-    if (newMemberId >= 4) {
+    setIsDialogOpen(true);
+    
+    }else{
+      toast.error("Max Members 4")
       setIsDialogOpen(true);
-      setTimeout(() => {
-        console.debug(`Start Room with: ${groupMembers.map(member => member.GroupMember).join(', ')}`);
-      }, 0);
+
     }
   };
-
+   
   const handleSearch = () => {
     // Filter your slides based on searchName and searchCategory here
     const filteredSlides = slides.filter(
@@ -127,10 +166,9 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
     setIsDialogOpen(false);
   };
 
-  const addChatRoom = () => {
+  const addChatRoom = async () => {
     // Perform form validation
     let isValid = true;
-
   
     if (nameRoom.trim() === '') {
       setFormErrors((prevErrors) => ({ ...prevErrors, nameRoom: 'Name is required' }));
@@ -138,28 +176,79 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
     } else {
       setFormErrors((prevErrors) => ({ ...prevErrors, nameRoom: '' }));
     }
-
+  
     if (describeRoom.trim() === '') {
       setFormErrors((prevErrors) => ({ ...prevErrors, describeRoom: 'Description is required' }));
       isValid = false;
     } else {
       setFormErrors((prevErrors) => ({ ...prevErrors, describeRoom: '' }));
     }
-
+  
     // If the form is valid, proceed with adding the chat room
     if (isValid) {
-      // Add your logic here to create the chat room
-      console.log('Chat room created:', { nameRoom, describeRoom, groupMembers });
+      // Extract avatar URLs from the slides using the groupMembers
+      const avatarUrls = groupMembers.map((member) =>
+        slides.find((slide) => slide.HeroName === member.GroupMember)?.Image || ''
+      );
+      
+      if (groupMembers.length < 2){
+        toast.error("You need at least 2 members in a room")
+        return
+      }
 
+
+      const filteredAvatarUrls = avatarUrls.filter(url => !url.startsWith('data:image/'));
+      const formattedAvatarUrls = filteredAvatarUrls.join(', ');
+
+      // Add your logic here to create the chat room
+      console.log('Chat room created:', { nameRoom, describeRoom, groupMembers, avatarUrls });
+  
+      const res = await axios.post('/api/chatroom', {
+        nameRoom,
+        describeRoom,
+        groupMembers: groupMembers.map((member) => member.GroupMember).join(', '),
+        avatarUrls: formattedAvatarUrls, // Send avatar URLs to the API
+       
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+     
       // Close the dialog
       setIsDialogOpen(false);
-
+  
       // Clear form fields
       setNameRoom('');
       setDescribeRoom('');
       setGroupMembers([]);
+      toast.success('Room Created Successfully!');
     }
   };
+  
+
+
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNameRoom(e.target.value);
+    // Validate the name here
+    if (e.target.value.trim() === '') {
+      setFormErrors((prevErrors) => ({ ...prevErrors, nameRoom: 'Name is required' }));
+    } else {
+      setFormErrors((prevErrors) => ({ ...prevErrors, nameRoom: '' }));
+    }
+  };
+  
+  const handleDescribeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDescribeRoom(e.target.value);
+    // Validate the description here
+    if (e.target.value.trim() === '') {
+      setFormErrors((prevErrors) => ({ ...prevErrors, describeRoom: 'Description is required' }));
+    } else {
+      setFormErrors((prevErrors) => ({ ...prevErrors, describeRoom: '' }));
+    }
+  };
+  
 
   return (
     <div className="container mx-auto mt-8 p-4 relative object-cover rounded-lg b-1">
@@ -206,7 +295,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
 
       <Swiper
         direction={'horizontal'}
-        slidesPerView={5}
+        slidesPerView={3}
         spaceBetween={5}
         slidesPerGroup={5}
         mousewheel={true}
@@ -218,23 +307,17 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
       >
         {handleSearch().length > 0 ? (
           handleSearch().map((slide, index) => {
-            let CompleteURL = '/';
-
-            if (slide.Image.includes('data')) {
-              CompleteURL = '';
-            } else {
-              CompleteURL = '/';
-            }
+          
 
             return (
               <SwiperSlide key={index}>
                 <a
-                  href={`${CompleteURL}${slide.Url}`}
+                  href={slide.Url}
                   className="relative block flex-shrink-0 top-5 left-5 hover:border-grey hover:bg-gray-700 rounded-lg gap-4 mx-auto"
                 >
                   <div className="flex justify-center p-4 ">
                     <Image
-                      src={`${CompleteURL}${slide.Image}`}
+                      src={slide.Image}
                       alt={slide.HeroName}
                       className={`object-cover rounded-lg ${styles.glowOnHover}`}
                       width={150}
@@ -327,7 +410,8 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
               type="text"
               placeholder="Name the Room!"
               value={nameRoom}
-              onChange={(e) => setNameRoom(e.target.value)}
+              onChange={handleNameChange}
+
               className={`p-2 mt-4 border-2 rounded-lg focus:outline-none ${
                 formErrors.nameRoom ? 'border-red-500' : 'border-purple-500'
               }`}
@@ -347,7 +431,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
               type="text"
               placeholder="What's the room about?"
               value={describeRoom}
-              onChange={(e) => setDescribeRoom(e.target.value)}
+              onChange={handleDescribeChange} 
               className={`p-2 mt-4 border-2 rounded-lg focus:outline-none ${
                 formErrors.describeRoom ? 'border-red-500' : 'border-purple-500'
               }`}

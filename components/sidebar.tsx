@@ -37,9 +37,9 @@ const routes = [
     },
 
     {
-      label: 'Enter Group Chat',
+      label: 'Chat Room',
       icon: Group,
-      href: '/Group',
+      href: '/chatroom',
       color: "text-violet-500",
       bgColor: "bg-violet-500/10",
     },

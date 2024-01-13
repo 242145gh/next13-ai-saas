@@ -18,9 +18,9 @@ export const tools = [
       bgColor: "bg-violet-500/10",
     },
     {
-      label: 'Enter Group Chat',
+      label: 'Chat Rooms',
       icon: Group,
-      href: '/Group',
+      href: '/chatroom',
       color: "text-violet-500",
       bgColor: "bg-violet-500/10",
     },
