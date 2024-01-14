@@ -10,9 +10,7 @@ export const Loader = () => {
           fill
         />
       </div>
-      <p className="text-sm text-muted-foreground">
-        wisdom source is thinking...
-      </p>
+     
     </div>
   );
 };

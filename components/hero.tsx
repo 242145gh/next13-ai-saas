@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import toast from 'react-hot-toast';
 import { AvatarImage } from './ui/avatar';
 import { Avatar } from '@radix-ui/react-avatar';
-
+import {Loader} from "@/components/loader"
 
 
 interface Hero {
@@ -40,6 +40,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
   const [searchCategory, setSearchCategory] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState<number | null>(null);
   const [groupMembers, setGroupMembers] = useState<Group[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
  
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formErrors, setFormErrors] = useState({
@@ -141,6 +142,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
     { label: 'Actor', variant: 'secondary', category: 'Actor' },
     { label: 'President', variant: 'secondary', category: 'President' },
     { label: 'Cartoon', variant: 'secondary', category: 'Cartoon' },
+    { label: 'Animal', variant: 'secondary', category: 'Animal' },
     // Add more buttons as needed with their respective categories
   ];
 
@@ -150,8 +152,10 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
         const { data } = await axios.post('/api/cmessage');
         setSlides(data);
         console.log('Data fetched:', data);
+        setIsLoading(false); 
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false); 
       }
     };
 
@@ -196,6 +200,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
         return
       }
 
+  
 
       const filteredAvatarUrls = avatarUrls.filter(url => !url.startsWith('data:image/'));
       const formattedAvatarUrls = filteredAvatarUrls.join(', ');
@@ -251,6 +256,10 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
   
 
   return (
+    isLoading ? (
+      <Loader />
+    ) :
+    
     <div className="container mx-auto mt-8 p-4 relative object-cover rounded-lg b-1">
       <div className="flex items-center space-x-4 mb-4">
         <Input
@@ -269,7 +278,7 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
           Show All
         </Button>
       </div>
-
+   
       <Swiper
         direction={'horizontal'}
         slidesPerView={4}
@@ -305,10 +314,8 @@ export const Heros: React.FC<Hero> = ({ MessageCircle: IconComponent, Menu: Menu
         className="HeroSwiper mb-8 p-4 h-55"
         style={{ height: '55rem' }} // Adjusted height to 55rem, you can change this value
       >
-        {handleSearch().length > 0 ? (
+        { handleSearch().length > 0 ? (
           handleSearch().map((slide, index) => {
-          
-
             return (
               <SwiperSlide key={index}>
                 <a

@@ -42,7 +42,6 @@ const CreateCharacter: React.FC = () => {
   const [success, setSuccess] = useState(false);
 
 
-
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
     if (!newCharacter.name.trim()) {
@@ -117,7 +116,7 @@ const CreateCharacter: React.FC = () => {
     <>
       <form
         onSubmit={handleFormSubmit}
-        className="container mx-auto mt-8 p-4 bg-gradient-to-r from-purple-500 to-pink-500 border-purple-500 border-10 rounded-lg shadow-md relative"
+        className="ml-14 p-4 mt-4 mr-4 w-3/4 container mx-auto mt-8 p-4 bg-gradient-to-r from-purple-500 to-pink-500 border-purple-500 border-10 rounded-lg shadow-md relative"
       >
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
