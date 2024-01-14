@@ -39,7 +39,7 @@ const ChatRoom: React.FC = () => {
       {chatRoomData.map((chatroom: any) => (
        
         <div key={chatroom.id} className="mb-4 border ml-14 mr-4 rounded-lg p-4 w-3/4 items-center justify-center ">
-          <Link href={`/chat/${chatroom.id}`} passHref={true}> <div className="flex items-center mb-2 ml-2 text-lg text-violet-400">
+          <Link href={`/chat/${chatroom.id}`}> <div className="flex items-center mb-2 ml-2 text-lg text-violet-400">
           
             <h2 className="text-xl font-bold hover:bg-grey-200">{chatroom.RoomName}</h2>
           </div></Link>

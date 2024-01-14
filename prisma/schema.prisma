@@ -36,9 +36,9 @@ model HerosChatCount {
 
 }
 model Room {
-  id          String    @id @default(cuid())
-  RoomMembers String
-  RoomName    String    @unique
+  id          String    @default(cuid()) @unique
+  RoomMembers String    @id
+  RoomName    String    
   Description String
   Url String @db.Text
 }
